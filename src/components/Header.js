@@ -7,7 +7,7 @@ return (
 <React.Fragment>
 <header className={classes.header}>
     <h1>ReactMeals</h1>
-    <HeaderCartButton/>
+    <HeaderCartButton toggleCartFunction={props.toggleCartFunction}/>
 </header>
 <div className={classes['main-image']}>
     <img src={headerImage} alt='A table full of delicious food!'></img>

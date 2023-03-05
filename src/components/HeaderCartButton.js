@@ -2,8 +2,12 @@ import CartIcon from './cart/CartIcon';
 import classes from './HeaderCartButton.module.css';
 
 const HeaderCartButton = (props) => {
+
+  const handleCartOpen=()=>{
+    props.toggleCartFunction();
+  }
   return (
-    <button className={classes.button}>
+    <button className={classes.button} onClick={handleCartOpen}>
       <span className={classes.icon}>
         <CartIcon />
       </span>

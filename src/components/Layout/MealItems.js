@@ -20,6 +20,7 @@ const mealsList = [{
 }]
 const MealItem = () => {
     return (
+        <>
         <div className={classes.mealItemDIv}>
             {mealsList.map((element) => {
                 return (
@@ -32,6 +33,7 @@ const MealItem = () => {
                     </div>)
             })}
         </div>
+        </>
     )
 }
 
