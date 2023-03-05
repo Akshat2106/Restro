@@ -1,8 +1,10 @@
-import { Fragment, useState } from 'react';
+import {useState } from 'react';
 import Cart from './components/Layout/Cart';
-import Header from './components/Header'
+import Header from './components/Layout/Header';
 import MealItem from './components/Layout/MealItems';
 import Summary from './components/Layout/Summary';
+import CartProvider from './components/Store/cartProvider';
+
 
 function App() {
   const [cartOpened, setcartOpened] = useState(false);
@@ -15,14 +17,14 @@ function App() {
   }
 
   return (
-    <Fragment>
+    <CartProvider>
      {cartOpened && <Cart toggleCartFunction={toggleCartFunction}/>}
       <Header toggleCartFunction={toggleCartFunction}/>
       <main>
         <Summary/>
       </main>
       <MealItem/>
-    </Fragment>
+    </CartProvider>
   );
 }
 

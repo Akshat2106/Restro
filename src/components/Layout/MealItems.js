@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from '../Layout/MealItems.module.css'
-import MealButtonForm from './MealButtonForm'
+import MealForm from './MealForm'
 const mealsList = [{
     mealName: "Sushi",
     mealdesc: "Finest Fish and veggie",
@@ -24,15 +24,16 @@ const MealItem = () => {
         <div className={classes.mealItemDIv}>
             {mealsList.map((element) => {
                 return (
-                    <div className={classes.mealItem}>
+                    <div className={classes.mealItem} key={element.mealName}>
                         <h5>{element.mealName}</h5>
                         <span>{element.mealdesc}</span>
                         <h6>${element.mealPrice}</h6>
-                        <MealButtonForm/>
+                        <MealForm/>
                         <hr />
                     </div>)
             })}
         </div>
+
         </>
     )
 }

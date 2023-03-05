@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import classes from '../Layout/Summary.module.css';
+import React, { Fragment } from 'react'
+import classes from '../Layout/Summary.module.css'
 const Summary = () => {
     return (
         <Fragment >
