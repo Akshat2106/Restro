@@ -1,32 +1,59 @@
+import { useContext } from 'react';
+import CartContext from '../Store/cart-context';
 import Modal from '../UI/Modal';
 import classes from './Cart.module.css';
 
 
 const Cart = (props) => {
-
-  const handleClose=()=>{
+  const cartCtx = useContext(CartContext);
+  const handleClose = () => {
     props.toggleCartFunction();
   }
-  const cartItems = (
-    <ul className={classes['cart-items']}>
-      {[{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }].map((item) => (
-        <li key={item.name}>{item.name}</li>
-      ))}
-    </ul>
-  );
 
   return (
-   <Modal>
-   {cartItems}
-   <div className={classes.total}>
-     <span>Total Amount</span>
-     <span>35.62</span>
-   </div>
-   <div className={classes.actions}>
-     <button className={classes['button--alt']} onClick={handleClose}>Close</button>
-     <button className={classes.button} >Order</button>
-   </div>
- </Modal>
+    <Modal>
+      {cartCtx.cartItems.map((item) => {
+        return <div className={classes.mealItem} key={item.mealName}>
+          <h5>{item.mealName}</h5>
+          <h6>${item.mealPrice}<button>x{item.mealQty}</button></h6>
+          <span>
+            <button onClick={() => {
+              if (item.mealQty > 0) {
+                const newState = cartCtx.cartItems.map(element =>
+                  element.mealId === item.mealId ? { ...element, mealQty: element.mealQty - 1 } : element
+                );
+                console.log(newState)
+                let newTotal = (cartCtx.total) - ((item.mealPrice));
+                cartCtx.setTotal(newTotal);
+                cartCtx.setcartItems(newState);
+                cartCtx.setTotalItems(cartCtx.totalItems - 1);
+
+              }
+            }}>-</button>
+
+            <button onClick={() => {
+              const newState = cartCtx.cartItems.map(element =>
+                element.id === item.id ? { ...element, mealQty: element.mealQty + 1 } : element
+              );
+              console.log(newState)
+              let newTotal = (cartCtx.total) + ((item.mealPrice));
+              cartCtx.setTotal(newTotal);
+              cartCtx.setcartItems(newState);
+            }}>+</button>
+
+          </span>
+          <hr />
+        </div>
+      })}
+      <div className={classes.total}>
+        <span>Total Amount</span>
+        <span>{cartCtx.total}</span>
+      </div>
+      <div className={classes.actions}>
+        <button className={classes['button--alt']} onClick={handleClose}>Close</button>
+        <button className={classes.button} >Order</button>
+      </div>
+    </Modal>
   );
 };
 
