@@ -1,30 +1,27 @@
-import {useState } from 'react';
-import Cart from './components/Layout/Cart';
-import Header from './components/Layout/Header';
-import MealItem from './components/Layout/MealItems';
-import Summary from './components/Layout/Summary';
-import CartProvider from './components/Store/cartProvider';
+import React, { useState, useCallback, useMemo } from 'react';
 
+import './App.css';
+import DemoList from './components/Demo/DemoList';
+import Button from './components/Button';
 
 function App() {
-  const [cartOpened, setcartOpened] = useState(false);
-  const toggleCartFunction=()=>{
-    if(cartOpened){
-      setcartOpened(false);
-    }else{
-      setcartOpened(true);
-    }
-  }
+  const [listTitle, setListTitle] = useState('My List');
 
+  const changeTitleHandler = useCallback(() => {
+    setListTitle('New Title');
+  }, []);
+
+  const listItems = useMemo(() => [5, 3, 1, 10, 9], []);
+
+  const handleDescending=()=>{
+    listItems.sort((a,b)=>b-a);
+  }
   return (
-    <CartProvider>
-     {cartOpened && <Cart toggleCartFunction={toggleCartFunction}/>}
-      <Header toggleCartFunction={toggleCartFunction}/>
-      <main>
-        <Summary/>
-      </main>
-      <MealItem/>
-    </CartProvider>
+    <div className="app">
+      <DemoList title={listTitle} items={listItems} />
+      <Button onClick={changeTitleHandler}>Change List Title</Button>
+      <Button onClick={handleDescending}>Change To Descending</Button>
+    </div>
   );
 }
 
